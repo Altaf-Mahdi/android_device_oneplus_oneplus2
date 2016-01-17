@@ -20,6 +20,9 @@
 # definition file).
 #
 
+# Inherit from oppo-common
+-include device/oppo/common/BoardConfigCommon.mk
+
 TARGET_OTA_ASSERT_DEVICE := OnePlus2,oneplus2
 
 BOARD_VENDOR := oneplus
@@ -120,9 +123,6 @@ TARGET_LIBINIT_DEFINES_FILE := device/oneplus/oneplus2/init/init_oneplus2.cpp
 # Keymaster app checking
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
-# Power
-TARGET_POWERHAL_VARIANT := qcom
-
 # RIL
 TARGET_RIL_VARIANT := caf
 
@@ -161,11 +161,7 @@ include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += device/oneplus/oneplus2/sepolicy
 
-# CM Hardware
-BOARD_USES_CYANOGEN_HARDWARE := true
-BOARD_HARDWARE_CLASS += \
-    device/oneplus/oneplus2/cmhw \
-    hardware/cyanogen/cmhw
+# Tap tp wake
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
 # inherit from the proprietary version
