@@ -2,6 +2,7 @@ allow system_server persist_file:dir { read write };
 allow system_server proc_touchpanel:dir search;
 allow system_server proc_touchpanel:file { write open getattr read };
 allow system_server stm_sensor:chr_file { read write ioctl open };
+allow system_server self:unix_stream_socket 0x7704;
 
 # To improve app launch times - we would like to force all tasks to
 # run on big cores for app launch (sched_boost) - instead of just
