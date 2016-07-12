@@ -405,7 +405,6 @@ bin/energy-awareness
 bin/iop
 bin/msm_irqbalance
 lib64/libqti-iop.so
-lib/libqti-iop.so
 vendor/bin/perfd
 vendor/lib/libqc-opt.so
 vendor/lib/libqti-iop-client.so

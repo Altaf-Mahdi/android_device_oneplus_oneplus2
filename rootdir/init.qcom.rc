@@ -498,6 +498,7 @@ service iop /system/bin/iop
     class main
     user root
     group root
+    socket iop seqpacket 0666 root system
     writepid /dev/cpuset/system-background/tasks
 
 service per_mgr /system/bin/pm-service

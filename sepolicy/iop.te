@@ -1,1 +1,0 @@
-allow dumpstate camera_device:dir { search };
