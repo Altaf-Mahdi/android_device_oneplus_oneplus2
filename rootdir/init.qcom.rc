@@ -30,9 +30,6 @@ import init.qcom.usb.rc
 on early-init
     symlink /data/tombstones /tombstones
 
-    # Setup zram options
-    write /sys/block/zram0/comp_algorithm lz4
-
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
@@ -45,7 +42,6 @@ on init
 
 on fs
     mount_all fstab.qcom
-    swapon_all fstab.qcom
 
     restorecon_recursive /persist
     mkdir /persist/data 0700 system system
@@ -443,15 +439,16 @@ on boot
     write /proc/sys/vm/dirty_ratio 5
     write /proc/sys/vm/dirty_background_ratio 1
 
+    # adaptive LMK
+    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
+    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
+
     # adaptive LMK + per-process reclaim
     write /sys/module/process_reclaim/parameters/enable_process_reclaim 1
     write /sys/module/process_reclaim/parameters/pressure_max 70
     write /sys/module/process_reclaim/parameters/swap_opt_eff 30
-    write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/process_reclaim/parameters/pressure_min 10
     write /sys/module/process_reclaim/parameters/per_swap_size 1024
-    write /sys/module/lowmemorykiller/parameters/minfree 18432,23040,27648,32256,55296,80640
-    write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 81250
 
     # Modify for drv2605 support
     chmod 0666 /dev/drv2605
