@@ -193,10 +193,6 @@ on post-fs-data
     chown system radio /proc/touchpanel/flashlight_enable
     chmod 0660 /proc/touchpanel/flashlight_enable
 
-    # Vibrator permissions
-    chown system system /sys/devices/virtual/timed_output/vibrator/vmax_mv
-    chmod 0644 /sys/devices/virtual/timed_output/vibrator/vmax_mv
-
     setprop vold.post_fs_data_done 1
 
 on early-boot
