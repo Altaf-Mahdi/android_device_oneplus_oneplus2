@@ -39,8 +39,7 @@ public class DozeService extends Service {
 
         IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        screenStateFilter.addAction(Intent.ACTION_DOZE_PULSE_REQUESTED);
-        this.registerReceiver(mScreenStateReceiver, screenStateFilter);
+        registerReceiver(mScreenStateReceiver, screenStateFilter);
     }
 
     @Override
@@ -76,22 +75,11 @@ public class DozeService extends Service {
 
     private void onDisplayOff() {
         if (DEBUG) Log.d(TAG, "Display off");
-        if (Utils.pickUpEnabled(this) && Utils.tiltAlwaysEnabled(this)) {
+        if (Utils.pickUpEnabled(this)) {
             mTiltSensor.enable();
         }
-        if (Utils.proximityAlwaysEnabled(this) && (Utils.handwaveGestureEnabled(this) ||
-                Utils.pocketGestureEnabled(this))) {
-            mProximitySensor.enable();
-        }
-    }
-
-    private void onDozeRequested() {
-        if (DEBUG) Log.d(TAG, "Doze requested");
-        if (Utils.pickUpEnabled(this) && !Utils.tiltAlwaysEnabled(this)) {
-            mTiltSensor.enable();
-        }
-        if (!Utils.proximityAlwaysEnabled(this) && (Utils.handwaveGestureEnabled(this) ||
-                Utils.pocketGestureEnabled(this))) {
+        if (Utils.handwaveGestureEnabled(this) ||
+                Utils.pocketGestureEnabled(this)) {
             mProximitySensor.enable();
         }
     }
@@ -103,8 +91,6 @@ public class DozeService extends Service {
                 onDisplayOn();
             } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 onDisplayOff();
-            } else if (intent.getAction().equals(Intent.ACTION_DOZE_PULSE_REQUESTED)) {
-                onDozeRequested();
             }
         }
     };
