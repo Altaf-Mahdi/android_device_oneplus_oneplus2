@@ -123,10 +123,6 @@ PRODUCT_PACKAGES += \
     sensors.hal.tof \
     Snap
 
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
-
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8994 \
